@@ -1,36 +1,40 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+<p align="center">
+  <img src="docs/hero.png" alt="VOC Triage homepage" width="100%">
+</p>
 
-## Getting Started
+# VOC Triage (web)
 
-First, run the development server:
+A research interface that links volatile organic compounds, olfactory receptors and diseases, built for researchers working on breath and urine volatilome biomarkers.
+
+**Live:** <https://voc-t-design-1.vercel.app> · **Status:** hackathon prototype (UCSF QBI Hackathon 2026) · **Backend / model:** [nikhilesh-s/voc-triage](https://github.com/nikhilesh-s/voc-triage)
+
+## What it does
+
+- **Molecules:** browse and search compounds with formula, molecular weight, CAS and PubChem IDs, chemical class, and how often each was reported in the literature.
+- **Diseases and receptors:** each has a profile page listing its linked compounds, so you can move between a molecule, the receptors it may act on, and the diseases it is associated with.
+- **Oracle:** a prototype hypothesis generator that pairs a receptor with a candidate compound and drafts follow-up experiments (docking, binding assay, expression validation).
+
+## Design
+
+The look is a dark scientific journal: italic serif headlines, mono uppercase labels, hairline rules and one glowing teal signal. Each entity type has its own color, so a molecule, receptor or disease is recognizable anywhere on the page.
+
+| | |
+|---|---|
+| Type | Newsreader (headlines) / IBM Plex Mono (labels, data) / Manrope (body) |
+| Color | `#06090c` background · `#e7f0ee` text · `#4ad6b0` molecules and accent · `#8fb6ff` receptors · `#e0a458` diseases |
+| Motion | Canvas "orbit" of counter-rotating particle rings in the hero (8.5–26 s periods); 0.18–0.22 s hover transitions on rows and buttons |
+
+## How it works
+
+A Next.js App Router site with an index page for each entity type and dynamic `[id]` detail routes. Compound and disease data are parsed client-side from a published urine volatilome dataset (supplementary tables S1 and S5) bundled in `public/`. The disease classifier itself lives in the separate [voc-triage](https://github.com/nikhilesh-s/voc-triage) FastAPI backend.
+
+**Stack:** Next.js 16 · React 19 · TypeScript · HTML canvas · Vercel
+
+## Run locally
 
 ```bash
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
-
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
-
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Then open <http://localhost:3000>.
